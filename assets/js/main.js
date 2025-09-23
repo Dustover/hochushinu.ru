@@ -162,3 +162,17 @@
   window.addEventListener("load", initSwiper);
 
 })();
+
+
+// Делаем всю карточку кликабельной
+document.querySelectorAll('.portfolio-item').forEach(item => {
+    item.addEventListener('click', function(e) {
+        // Проверяем, что клик не по кнопке увеличения
+        if (!e.target.closest('.preview-link')) {
+            const detailsLink = this.querySelector('.details-link');
+            if (detailsLink) {
+                window.location.href = detailsLink.href;
+            }
+        }
+    });
+});
