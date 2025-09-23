@@ -27,6 +27,9 @@
   <!-- Main CSS File -->
   <link href="../assets/css/main.css" rel="stylesheet">
 
+  <!-- Дополнительные стили для страниц товаров -->
+  <link href="../assets/css/product-pages.css" rel="stylesheet">
+
   <!-- =======================================================
   * Template Name: MyPortfolio
   * Template URL: https://bootstrapmade.com/myportfolio-bootstrap-portfolio-website-template/
@@ -147,6 +150,66 @@
               </div>
               <div class="swiper-pagination"></div>
             </div>
+
+            <!-- Превью изображений -->
+            <div class="thumbnail-slider swiper init-swiper">
+
+              <script type="application/json" class="swiper-config">
+                {
+                  "slidesPerView": "auto",
+                  "spaceBetween": 10,
+                  "freeMode": true,
+                  "watchSlidesProgress": true
+                }
+              </script>
+
+              <div class="swiper-wrapper">
+                
+                <div class="swiper-slide thumbnail-slide">
+                  <img src="https://i.postimg.cc/t7qptJSw/image-1.jpg" alt="Превью 1">
+                </div>
+
+                <div class="swiper-slide thumbnail-slide">
+                  <img src="https://i.postimg.cc/yk5KHP1C/image-2.jpg" alt="Превью 2">
+                </div>
+
+                <div class="swiper-slide thumbnail-slide">
+                  <img src="https://i.postimg.cc/JGt8vgWQ/image-3.jpg" alt="Превью 3">
+                </div>
+
+                <div class="swiper-slide thumbnail-slide">
+                  <img src="https://i.postimg.cc/dD5vWFg1/image-4.jpg" alt="Превью 4">
+                </div>
+
+                <div class="swiper-slide thumbnail-slide">
+                  <img src="https://i.postimg.cc/YvWHqW0G/image-5.jpg" alt="Превью 5">
+                </div>
+
+                <div class="swiper-slide thumbnail-slide">
+                  <img src="https://i.postimg.cc/R3xz3ZJP/image-6.jpg" alt="Превью 6">
+                </div>
+
+                <div class="swiper-slide thumbnail-slide">
+                  <img src="https://i.postimg.cc/d7RcGc8J/image-7.jpg" alt="Превью 7">
+                </div>
+
+                <div class="swiper-slide thumbnail-slide">
+                  <img src="https://i.postimg.cc/njHbkSkB/image-8.jpg" alt="Превью 8">
+                </div>
+
+                <div class="swiper-slide thumbnail-slide">
+                  <img src="https://i.postimg.cc/LYNd0kC7/image-9.jpg" alt="Превью 9">
+                </div>
+
+                <div class="swiper-slide thumbnail-slide">
+                  <img src="https://i.postimg.cc/vxTRR1Cm/image-10.jpg" alt="Превью 10">
+                </div>
+
+                <div class="swiper-slide thumbnail-slide">
+                  <img src="https://i.postimg.cc/6Tpx4STN/image-11.jpg" alt="Превью 11">
+                </div>
+              </div>
+            </div>
           </div>
 
           <div class="col-lg-4">
@@ -163,6 +226,18 @@
               </ul>
             </div>
             <div class="portfolio-description" data-aos="fade-up" data-aos-delay="300">
+
+
+              <!-- Кнопка WhatsApp после описания -->
+              <div class="whatsapp-btn-container mt-4" data-aos="fade-up" data-aos-delay="400">
+                <a href="https://wa.me/79211813093?text=Здравствуйте! Интересует GTK RS220 650/75R32 TL 172A8/172B Ведущие" 
+                   class="whatsapp-btn" 
+                   target="_blank">
+                  <i class="bi bi-whatsapp"></i>
+                  Заказать по WhatsApp
+                </a>
+              </div>
+              
               <h2>Описание</h2>
               <p>Шинa GTК RS220 650/75R32 TL 172А8/172B пpедназначена для уcтанoвки на ведущие oси сeльcкoxoзяйcтвeннoй техники, включая комбайны. Oна пpедлагает oтличную гpузoподъемнoсть при cнижении весa, улучшeнныe тяговые xарaктеpистики и высoкую тoпливную экoномичнocть. Прoтeктоp c V-обpазными гpунтoзaцепами обеcпечиваeт oтличное cцепление и устойчивость, а уменьшение сопротивления качению снижает износ и повышает общую эффективность эксплуатации. Прочная резиновая смесь устойчива к проколам и абразивному износу, что увеличивает срок службы шины.</p>
             </div>
@@ -210,6 +285,33 @@
 
   <!-- Main JS File -->
   <script src="../assets/js/main.js"></script>
+
+  <script>
+    // Скрипт для связи основного слайдера с превью
+    document.addEventListener('DOMContentLoaded', function() {
+      const mainSlider = new Swiper('.portfolio-details-slider .swiper', {
+        loop: true,
+        speed: 600,
+        autoplay: { delay: 5000 },
+        slidesPerView: 'auto',
+        pagination: { el: '.swiper-pagination', clickable: true },
+        thumbs: { 
+          swiper: new Swiper('.thumbnail-slider .swiper', {
+            slidesPerView: 'auto',
+            spaceBetween: 10,
+            freeMode: true,
+            watchSlidesProgress: true,
+            breakpoints: {
+              320: { slidesPerView: 3 },
+              480: { slidesPerView: 4 },
+              768: { slidesPerView: 5 },
+              992: { slidesPerView: 6 }
+            }
+          })
+        }
+      });
+    });
+  </script>
 
 </body>
 

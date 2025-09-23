@@ -27,6 +27,9 @@
   <!-- Main CSS File -->
   <link href="../assets/css/main.css" rel="stylesheet">
 
+  <!-- Дополнительные стили для страниц товаров -->
+  <link href="../assets/css/product-pages.css" rel="stylesheet">
+
   <!-- =======================================================
   * Template Name: MyPortfolio
   * Template URL: https://bootstrapmade.com/myportfolio-bootstrap-portfolio-website-template/
@@ -159,6 +162,78 @@
               </div>
               <div class="swiper-pagination"></div>
             </div>
+
+            <!-- Превью изображений -->
+            <div class="thumbnail-slider swiper init-swiper">
+
+              <script type="application/json" class="swiper-config">
+                {
+                  "slidesPerView": "auto",
+                  "spaceBetween": 10,
+                  "freeMode": true,
+                  "watchSlidesProgress": true
+                }
+              </script>
+
+              <div class="swiper-wrapper">
+                
+                <div class="swiper-slide thumbnail-slide">
+                  <img src="https://i.postimg.cc/FkZGgmpX/image-1.jpg" alt="Превью 1">
+                </div>
+
+                <div class="swiper-slide thumbnail-slide">
+                  <img src="https://i.postimg.cc/8jkV8zqW/image-2.jpg" alt="Превью 2">
+                </div>
+
+                <div class="swiper-slide thumbnail-slide">
+                  <img src="https://i.postimg.cc/ZCfzJhSQ/image-3.jpg" alt="Превью 3">
+                </div>
+
+                <div class="swiper-slide thumbnail-slide">
+                  <img src="https://i.postimg.cc/w178vbxj/image-4.jpg" alt="Превью 4">
+                </div>
+
+                <div class="swiper-slide thumbnail-slide">
+                  <img src="https://i.postimg.cc/bZWX2HdH/image-5.jpg" alt="Превью 5">
+                </div>
+
+                <div class="swiper-slide thumbnail-slide">
+                  <img src="https://i.postimg.cc/B8Kr5LKW/image-6.jpg" alt="Превью 6">
+                </div>
+
+                <div class="swiper-slide thumbnail-slide">
+                  <img src="https://i.postimg.cc/XG6Tsjfr/image-7.jpg" alt="Превью 7">
+                </div>
+
+                <div class="swiper-slide thumbnail-slide">
+                  <img src="https://i.postimg.cc/Hc0FKqzB/image-8.jpg" alt="Превью 8">
+                </div>
+
+                <div class="swiper-slide thumbnail-slide">
+                  <img src="https://i.postimg.cc/gLY1PgBd/image-9.jpg" alt="Превью 9">
+                </div>
+
+                <div class="swiper-slide thumbnail-slide">
+                  <img src="https://i.postimg.cc/5j3ZmM6t/image-10.jpg" alt="Превью 10">
+                </div>
+
+                <div class="swiper-slide thumbnail-slide">
+                  <img src="https://i.postimg.cc/NKySY9by/image-11.jpg" alt="Превью 11">
+                </div>
+
+                <div class="swiper-slide thumbnail-slide">
+                  <img src="https://i.postimg.cc/PCBcqXFS/image-12.jpg" alt="Превью 12">
+                </div>
+
+                <div class="swiper-slide thumbnail-slide">
+                  <img src="https://i.postimg.cc/N9tz1NtT/image-13.jpg" alt="Превью 13">
+                </div>
+
+                <div class="swiper-slide thumbnail-slide">
+                  <img src="https://i.postimg.cc/PpMFKmf7/image-14.jpg" alt="Превью 14">
+                </div>
+              </div>
+            </div>
           </div>
 
           <div class="col-lg-4">
@@ -175,6 +250,18 @@
               </ul>
             </div>
             <div class="portfolio-description" data-aos="fade-up" data-aos-delay="300">
+
+
+              <!-- Кнопка WhatsApp после описания -->
+              <div class="whatsapp-btn-container mt-4" data-aos="fade-up" data-aos-delay="400">
+                <a href="https://wa.me/79211813093?text=Здравствуйте! Интересует Kapsen HS166 385/65R22,5 20PR 160K Прицепные" 
+                   class="whatsapp-btn" 
+                   target="_blank">
+                  <i class="bi bi-whatsapp"></i>
+                  Заказать по WhatsApp
+                </a>
+              </div>
+              
               <h2>Описание</h2>
               <p>Шинa Kapsen НS166 – этo oтличный выбор для полуприцeпов. Блaгодaря пяти рeбрам и уcиленнoму кoмпaунду бoкoвых блоков, она уcтойчивa к повреждениям и oбecпечиваeт отличную манeвренноcть. Tpи центрaльных прoдольныx ребpa c канaвками усиливaют тягу и пpедoтвpащaют занocы, оcoбeннo нa мокрой доpoге. Канавки быстро отводят воду, что повышает сцепление. Эти шины идеально подходят для работы в любых условиях и выдерживают большие нагрузки, что делает их надежным выбором для прицепной части.</p>
             </div>
@@ -222,6 +309,33 @@
 
   <!-- Main JS File -->
   <script src="../assets/js/main.js"></script>
+
+  <script>
+    // Скрипт для связи основного слайдера с превью
+    document.addEventListener('DOMContentLoaded', function() {
+      const mainSlider = new Swiper('.portfolio-details-slider .swiper', {
+        loop: true,
+        speed: 600,
+        autoplay: { delay: 5000 },
+        slidesPerView: 'auto',
+        pagination: { el: '.swiper-pagination', clickable: true },
+        thumbs: { 
+          swiper: new Swiper('.thumbnail-slider .swiper', {
+            slidesPerView: 'auto',
+            spaceBetween: 10,
+            freeMode: true,
+            watchSlidesProgress: true,
+            breakpoints: {
+              320: { slidesPerView: 3 },
+              480: { slidesPerView: 4 },
+              768: { slidesPerView: 5 },
+              992: { slidesPerView: 6 }
+            }
+          })
+        }
+      });
+    });
+  </script>
 
 </body>
 

@@ -27,6 +27,9 @@
   <!-- Main CSS File -->
   <link href="../assets/css/main.css" rel="stylesheet">
 
+  <!-- Дополнительные стили для страниц товаров -->
+  <link href="../assets/css/product-pages.css" rel="stylesheet">
+
   <!-- =======================================================
   * Template Name: MyPortfolio
   * Template URL: https://bootstrapmade.com/myportfolio-bootstrap-portfolio-website-template/
@@ -135,6 +138,54 @@
               </div>
               <div class="swiper-pagination"></div>
             </div>
+
+            <!-- Превью изображений -->
+            <div class="thumbnail-slider swiper init-swiper">
+
+              <script type="application/json" class="swiper-config">
+                {
+                  "slidesPerView": "auto",
+                  "spaceBetween": 10,
+                  "freeMode": true,
+                  "watchSlidesProgress": true
+                }
+              </script>
+
+              <div class="swiper-wrapper">
+                
+                <div class="swiper-slide thumbnail-slide">
+                  <img src="https://i.postimg.cc/9R8x3LG6/image-1.jpg" alt="Превью 1">
+                </div>
+
+                <div class="swiper-slide thumbnail-slide">
+                  <img src="https://i.postimg.cc/mzxqXXy8/image-2.jpg" alt="Превью 2">
+                </div>
+
+                <div class="swiper-slide thumbnail-slide">
+                  <img src="https://i.postimg.cc/9RnBgr2V/image-3.jpg" alt="Превью 3">
+                </div>
+
+                <div class="swiper-slide thumbnail-slide">
+                  <img src="https://i.postimg.cc/1f4kzqX0/image-4.jpg" alt="Превью 4">
+                </div>
+
+                <div class="swiper-slide thumbnail-slide">
+                  <img src="https://i.postimg.cc/V0tX7g4B/image-5.jpg" alt="Превью 5">
+                </div>
+
+                <div class="swiper-slide thumbnail-slide">
+                  <img src="https://i.postimg.cc/qNqv4qVW/image-6.jpg" alt="Превью 6">
+                </div>
+
+                <div class="swiper-slide thumbnail-slide">
+                  <img src="https://i.postimg.cc/ZWXyC2mb/image-7.jpg" alt="Превью 7">
+                </div>
+
+                <div class="swiper-slide thumbnail-slide">
+                  <img src="https://i.postimg.cc/8FhssCw4/image-8.jpg" alt="Превью 8">
+                </div>
+              </div>
+            </div>
           </div>
 
           <div class="col-lg-4">
@@ -151,6 +202,18 @@
               </ul>
             </div>
             <div class="portfolio-description" data-aos="fade-up" data-aos-delay="300">
+
+
+              <!-- Кнопка WhatsApp после описания -->
+              <div class="whatsapp-btn-container mt-4" data-aos="fade-up" data-aos-delay="400">
+                <a href="https://wa.me/79211813093?text=Здравствуйте! Интересует WestLake WT01 600/70R30 TL 152A8/152B Рулевые" 
+                   class="whatsapp-btn" 
+                   target="_blank">
+                  <i class="bi bi-whatsapp"></i>
+                  Заказать по WhatsApp
+                </a>
+              </div>
+              
               <h2>Описание</h2>
               <p>Шинa WestLаkе WТ01 600/70R30 ТL 152A8/152В — это рулевая мoдель, идeальнo пoдхoдящая для испoльзовaния нa тpaктoрной технике. Oтличаeтся высокой уcтoйчивoстью к нагpузкам и долгoвечностью пpи выпoлнeнии различныx сельcкоxозяйствeнныx pабoт. Протeктoр oбeспeчивaет отличную caмоочистку и cцепление, улучшая мaнeвренность на любых покрытиях. Модель обладает высокой несущей способностью и отличной флотацией, минимизируя уплотнение почвы. Эта шина редкость на российском рынке, что делает её особенно привлекательной для тех, кто ищет нестандартные решения для своей техники.</p>
             </div>
@@ -198,6 +261,33 @@
 
   <!-- Main JS File -->
   <script src="../assets/js/main.js"></script>
+
+  <script>
+    // Скрипт для связи основного слайдера с превью
+    document.addEventListener('DOMContentLoaded', function() {
+      const mainSlider = new Swiper('.portfolio-details-slider .swiper', {
+        loop: true,
+        speed: 600,
+        autoplay: { delay: 5000 },
+        slidesPerView: 'auto',
+        pagination: { el: '.swiper-pagination', clickable: true },
+        thumbs: { 
+          swiper: new Swiper('.thumbnail-slider .swiper', {
+            slidesPerView: 'auto',
+            spaceBetween: 10,
+            freeMode: true,
+            watchSlidesProgress: true,
+            breakpoints: {
+              320: { slidesPerView: 3 },
+              480: { slidesPerView: 4 },
+              768: { slidesPerView: 5 },
+              992: { slidesPerView: 6 }
+            }
+          })
+        }
+      });
+    });
+  </script>
 
 </body>
 

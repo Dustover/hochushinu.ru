@@ -27,6 +27,9 @@
   <!-- Main CSS File -->
   <link href="../assets/css/main.css" rel="stylesheet">
 
+  <!-- Дополнительные стили для страниц товаров -->
+  <link href="../assets/css/product-pages.css" rel="stylesheet">
+
   <!-- =======================================================
   * Template Name: MyPortfolio
   * Template URL: https://bootstrapmade.com/myportfolio-bootstrap-portfolio-website-template/
@@ -131,6 +134,50 @@
               </div>
               <div class="swiper-pagination"></div>
             </div>
+
+            <!-- Превью изображений -->
+            <div class="thumbnail-slider swiper init-swiper">
+
+              <script type="application/json" class="swiper-config">
+                {
+                  "slidesPerView": "auto",
+                  "spaceBetween": 10,
+                  "freeMode": true,
+                  "watchSlidesProgress": true
+                }
+              </script>
+
+              <div class="swiper-wrapper">
+                
+                <div class="swiper-slide thumbnail-slide">
+                  <img src="https://i.postimg.cc/hJv3tFpC/image-1.jpg" alt="Превью 1">
+                </div>
+
+                <div class="swiper-slide thumbnail-slide">
+                  <img src="https://i.postimg.cc/wtr4tWr9/image-2.jpg" alt="Превью 2">
+                </div>
+
+                <div class="swiper-slide thumbnail-slide">
+                  <img src="https://i.postimg.cc/cg89fRqw/image-3.jpg" alt="Превью 3">
+                </div>
+
+                <div class="swiper-slide thumbnail-slide">
+                  <img src="https://i.postimg.cc/1VhWB8PT/image-4.jpg" alt="Превью 4">
+                </div>
+
+                <div class="swiper-slide thumbnail-slide">
+                  <img src="https://i.postimg.cc/PvWSRd5q/image-5.jpg" alt="Превью 5">
+                </div>
+
+                <div class="swiper-slide thumbnail-slide">
+                  <img src="https://i.postimg.cc/pyzcTJJt/image-6.jpg" alt="Превью 6">
+                </div>
+
+                <div class="swiper-slide thumbnail-slide">
+                  <img src="https://i.postimg.cc/8jGKrfZf/image-7.jpg" alt="Превью 7">
+                </div>
+              </div>
+            </div>
           </div>
 
           <div class="col-lg-4">
@@ -147,6 +194,18 @@
               </ul>
             </div>
             <div class="portfolio-description" data-aos="fade-up" data-aos-delay="300">
+
+
+              <!-- Кнопка WhatsApp после описания -->
+              <div class="whatsapp-btn-container mt-4" data-aos="fade-up" data-aos-delay="400">
+                <a href="https://wa.me/79211813093?text=Здравствуйте! Интересует WestLake WT01 710/70R42 TL 173A8/173B Ведущие" 
+                   class="whatsapp-btn" 
+                   target="_blank">
+                  <i class="bi bi-whatsapp"></i>
+                  Заказать по WhatsApp
+                </a>
+              </div>
+              
               <h2>Описание</h2>
               <p>Шинa WestLak WT01 710/70R42 — этo не прoсто высокoкачeственнaя модель для сельхoзтexники, нo и eдинcтвенная в своем pодe на росcийcкoм рынке. C отличными тяговыми xарактepиcтиками и прoчным протeктоpом, онa идeaльно пoдходит для paботы нa pазличныx гpунтax. При этoм её нeт в oфициaльной продажe в Pоссии, что делает её редкостью и отличным выбором для тех, кто ищет что-то особенное. Высокая надежность и долговечность — то, что нужно для тяжелых условий работы.</p>
             </div>
@@ -194,6 +253,33 @@
 
   <!-- Main JS File -->
   <script src="../assets/js/main.js"></script>
+
+  <script>
+    // Скрипт для связи основного слайдера с превью
+    document.addEventListener('DOMContentLoaded', function() {
+      const mainSlider = new Swiper('.portfolio-details-slider .swiper', {
+        loop: true,
+        speed: 600,
+        autoplay: { delay: 5000 },
+        slidesPerView: 'auto',
+        pagination: { el: '.swiper-pagination', clickable: true },
+        thumbs: { 
+          swiper: new Swiper('.thumbnail-slider .swiper', {
+            slidesPerView: 'auto',
+            spaceBetween: 10,
+            freeMode: true,
+            watchSlidesProgress: true,
+            breakpoints: {
+              320: { slidesPerView: 3 },
+              480: { slidesPerView: 4 },
+              768: { slidesPerView: 5 },
+              992: { slidesPerView: 6 }
+            }
+          })
+        }
+      });
+    });
+  </script>
 
 </body>
 

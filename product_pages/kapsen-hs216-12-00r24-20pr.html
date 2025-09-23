@@ -27,6 +27,9 @@
   <!-- Main CSS File -->
   <link href="../assets/css/main.css" rel="stylesheet">
 
+  <!-- Дополнительные стили для страниц товаров -->
+  <link href="../assets/css/product-pages.css" rel="stylesheet">
+
   <!-- =======================================================
   * Template Name: MyPortfolio
   * Template URL: https://bootstrapmade.com/myportfolio-bootstrap-portfolio-website-template/
@@ -143,6 +146,62 @@
               </div>
               <div class="swiper-pagination"></div>
             </div>
+
+            <!-- Превью изображений -->
+            <div class="thumbnail-slider swiper init-swiper">
+
+              <script type="application/json" class="swiper-config">
+                {
+                  "slidesPerView": "auto",
+                  "spaceBetween": 10,
+                  "freeMode": true,
+                  "watchSlidesProgress": true
+                }
+              </script>
+
+              <div class="swiper-wrapper">
+                
+                <div class="swiper-slide thumbnail-slide">
+                  <img src="https://i.postimg.cc/dZqj0pYH/image-1.jpg" alt="Превью 1">
+                </div>
+
+                <div class="swiper-slide thumbnail-slide">
+                  <img src="https://i.postimg.cc/v41LD5Js/image-2.jpg" alt="Превью 2">
+                </div>
+
+                <div class="swiper-slide thumbnail-slide">
+                  <img src="https://i.postimg.cc/2V97z0XG/image-3.jpg" alt="Превью 3">
+                </div>
+
+                <div class="swiper-slide thumbnail-slide">
+                  <img src="https://i.postimg.cc/kBgy30wD/image-4.jpg" alt="Превью 4">
+                </div>
+
+                <div class="swiper-slide thumbnail-slide">
+                  <img src="https://i.postimg.cc/1nKDbBqp/image-5.jpg" alt="Превью 5">
+                </div>
+
+                <div class="swiper-slide thumbnail-slide">
+                  <img src="https://i.postimg.cc/T5YnxbVB/image-6.jpg" alt="Превью 6">
+                </div>
+
+                <div class="swiper-slide thumbnail-slide">
+                  <img src="https://i.postimg.cc/kDnQK00w/image-7.jpg" alt="Превью 7">
+                </div>
+
+                <div class="swiper-slide thumbnail-slide">
+                  <img src="https://i.postimg.cc/K4JnN9Fb/image-8.jpg" alt="Превью 8">
+                </div>
+
+                <div class="swiper-slide thumbnail-slide">
+                  <img src="https://i.postimg.cc/Y46FmR8J/image-9.jpg" alt="Превью 9">
+                </div>
+
+                <div class="swiper-slide thumbnail-slide">
+                  <img src="https://i.postimg.cc/G8zsXpWK/image-10.jpg" alt="Превью 10">
+                </div>
+              </div>
+            </div>
           </div>
 
           <div class="col-lg-4">
@@ -159,6 +218,18 @@
               </ul>
             </div>
             <div class="portfolio-description" data-aos="fade-up" data-aos-delay="300">
+
+
+              <!-- Кнопка WhatsApp после описания -->
+              <div class="whatsapp-btn-container mt-4" data-aos="fade-up" data-aos-delay="400">
+                <a href="https://wa.me/79211813093?text=Здравствуйте! Интересует Kapsen HS216 12.00R24 20PR 160/157K Универсальные" 
+                   class="whatsapp-btn" 
+                   target="_blank">
+                  <i class="bi bi-whatsapp"></i>
+                  Заказать по WhatsApp
+                </a>
+              </div>
+              
               <h2>Описание</h2>
               <p>Koммepческaя шинa Kapsen НS216 предназначeна для pегиональных пepeвозок и мoжет устaнавливаться нa любую ocь грузовыx автомoбилей бoльшой вмеcтимocти. Отличaется нaдeжноcтью, увeличенным cрoкoм cлужбы и отличными cцепными xaрактepистиками кaк на сухих, так и на мокрых дорогах.</p>
             </div>
@@ -206,6 +277,33 @@
 
   <!-- Main JS File -->
   <script src="../assets/js/main.js"></script>
+
+  <script>
+    // Скрипт для связи основного слайдера с превью
+    document.addEventListener('DOMContentLoaded', function() {
+      const mainSlider = new Swiper('.portfolio-details-slider .swiper', {
+        loop: true,
+        speed: 600,
+        autoplay: { delay: 5000 },
+        slidesPerView: 'auto',
+        pagination: { el: '.swiper-pagination', clickable: true },
+        thumbs: { 
+          swiper: new Swiper('.thumbnail-slider .swiper', {
+            slidesPerView: 'auto',
+            spaceBetween: 10,
+            freeMode: true,
+            watchSlidesProgress: true,
+            breakpoints: {
+              320: { slidesPerView: 3 },
+              480: { slidesPerView: 4 },
+              768: { slidesPerView: 5 },
+              992: { slidesPerView: 6 }
+            }
+          })
+        }
+      });
+    });
+  </script>
 
 </body>
 

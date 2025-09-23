@@ -32,52 +32,8 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
   <!-- Main CSS File -->
   <link href="../assets/css/main.css" rel="stylesheet">
 
-  <style>
-    /* Стили для превью изображений */
-    .thumbnail-slider {{
-      margin-top: 15px;
-    }}
-    .thumbnail-slide {{
-      cursor: pointer;
-      opacity: 0.6;
-      transition: opacity 0.3s ease;
-      padding: 2px;
-    }}
-    .thumbnail-slide:hover,
-    .thumbnail-slide.active {{
-      opacity: 1;
-    }}
-    .thumbnail-slide img {{
-      width: 80px;
-      height: 60px;
-      object-fit: cover;
-      border-radius: 4px;
-    }}
-    .whatsapp-btn {{
-      background: #25D366;
-      color: white;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 6px;
-      font-weight: 600;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: background 0.3s ease;
-    }}
-    .whatsapp-btn:hover {{
-      background: #128C7E;
-      color: white;
-    }}
-    .portfolio-details-slider {{
-      max-height: 500px;
-    }}
-    .portfolio-details-slider img {{
-      max-height: 450px;
-      object-fit: contain;
-    }}
-  </style>
+  <!-- Дополнительные стили для страниц товаров -->
+  <link href="../assets/css/product-pages.css" rel="stylesheet">
 
   <!-- =======================================================
   * Template Name: MyPortfolio
@@ -173,16 +129,6 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
                 {thumbnail_slides}
               </div>
             </div>
-
-            <!-- Кнопка WhatsApp -->
-            <div class="mt-4" data-aos="fade-up" data-aos-delay="400">
-              <a href="https://wa.me/79211813093?text=Здравствуйте! Интересует {name}" 
-                 class="whatsapp-btn" 
-                 target="_blank">
-                <i class="bi bi-whatsapp"></i>
-                Заказать по WhatsApp
-              </a>
-            </div>
           </div>
 
           <div class="col-lg-4">
@@ -199,6 +145,18 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
               </ul>
             </div>
             <div class="portfolio-description" data-aos="fade-up" data-aos-delay="300">
+
+
+              <!-- Кнопка WhatsApp после описания -->
+              <div class="whatsapp-btn-container mt-4" data-aos="fade-up" data-aos-delay="400">
+                <a href="https://wa.me/79211813093?text=Здравствуйте! Интересует {name}" 
+                   class="whatsapp-btn" 
+                   target="_blank">
+                  <i class="bi bi-whatsapp"></i>
+                  Заказать по WhatsApp
+                </a>
+              </div>
+              
               <h2>Описание</h2>
               <p>{full_description}</p>
             </div>
@@ -256,12 +214,20 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
         autoplay: {{ delay: 5000 }},
         slidesPerView: 'auto',
         pagination: {{ el: '.swiper-pagination', clickable: true }},
-        thumbs: {{ swiper: new Swiper('.thumbnail-slider .swiper', {{
-          slidesPerView: 'auto',
-          spaceBetween: 10,
-          freeMode: true,
-          watchSlidesProgress: true
-        }})}}
+        thumbs: {{ 
+          swiper: new Swiper('.thumbnail-slider .swiper', {{
+            slidesPerView: 'auto',
+            spaceBetween: 10,
+            freeMode: true,
+            watchSlidesProgress: true,
+            breakpoints: {{
+              320: {{ slidesPerView: 3 }},
+              480: {{ slidesPerView: 4 }},
+              768: {{ slidesPerView: 5 }},
+              992: {{ slidesPerView: 6 }}
+            }}
+          }})
+        }}
       }});
     }});
   </script>
