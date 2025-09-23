@@ -262,31 +262,69 @@ def get_category_name(subcategory):
     return category_map.get(subcategory, 'Шины')
 
 
-def generate_image_slides(images_urls):
-    """Генерация слайдов для изображений и превью"""
+import re
+import pandas as pd
+
+
+def extract_image_urls(html_content):
+    """Извлекает URL изображений из HTML-строки."""
+    if pd.isna(html_content) or not html_content:
+        return ""
+
+    # Используем регулярное выражение для поиска всех URL в атрибуте src
+    pattern = r'<img[^>]*src="([^"]*)"[^>]*>'
+    matches = re.findall(pattern, html_content)
+
+    # Возвращаем строку с URL через запятую
+    return ','.join(matches)
+
+
+def generate_image_slides(images_html):
+    """Генерация слайдов для изображений из HTML-контента"""
     slides = []
     thumbnails = []
-    urls = [url.strip() for url in images_urls.split(',') if url.strip()]
+
+    # Извлекаем URL из HTML
+    image_urls = extract_image_urls(images_html)
+
+    if not image_urls:
+        # Если нет изображений, возвращаем заглушку
+        slide = '''
+                <div class="swiper-slide">
+                  <img src="../assets/img/no-image.jpg" alt="Нет изображения" style="max-height: 400px; object-fit: contain;">
+                </div>'''
+        thumbnail = '''
+                <div class="swiper-slide thumbnail-slide">
+                  <img src="../assets/img/no-image.jpg" alt="Нет изображения">
+                </div>'''
+        return slide, thumbnail
+
+    # Разделяем URL по запятой
+    urls = [url.strip() for url in image_urls.split(',') if url.strip()]
 
     for i, url in enumerate(urls):
-        # Преобразуем ссылку на изображение в правильный формат
-        if 'postimg.cc' in url:
-            image_id = url.split('/')[-1]
-            direct_url = f'https://i.postimg.cc/{image_id}/image-{i + 1}.jpg'
-        else:
-            direct_url = url
+        # Используем прямые ссылки на изображения
+        direct_url = url.strip()
 
         # Основной слайд
         slide = f'''
                 <div class="swiper-slide">
-                  <img src="{direct_url}" alt="Изображение {i + 1}">
+                  <div class="image-container">
+                    <img src="{direct_url}" 
+                         alt="Изображение {i + 1}" 
+                         loading="lazy"
+                         class="main-product-image">
+                  </div>
                 </div>'''
         slides.append(slide)
 
         # Превью слайд
         thumbnail = f'''
                 <div class="swiper-slide thumbnail-slide">
-                  <img src="{direct_url}" alt="Превью {i + 1}">
+                  <img src="{direct_url}" 
+                       alt="Превью {i + 1}" 
+                       loading="lazy"
+                       class="thumbnail-image">
                 </div>'''
         thumbnails.append(thumbnail)
 
@@ -311,7 +349,7 @@ def generate_product_pages():
         subcategory = row['subcategory']
         brand = row['brand']
         description = row['description']
-        images = row['images']
+        images_html = row['images']  # Теперь это HTML-контент
         model = row['model']
         width = row['width']
         height = row['height']
@@ -320,8 +358,8 @@ def generate_product_pages():
         sku = row['sku']
         name_page = row['name_page']
 
-        # Генерация контента
-        image_slides, thumbnail_slides = generate_image_slides(images)
+        # Генерация контента для изображений
+        image_slides, thumbnail_slides = generate_image_slides(images_html)
         category_id = get_category_id(subcategory)
         category_name = get_category_name(subcategory)
 
@@ -355,7 +393,7 @@ def generate_product_pages():
         generated_pages.append(name_page)
         print(f'Сгенерирована страница: {name_page}')
 
-    # Создание индексного файла со списком всех страниц
+    # Создание индексного файла
     with open(output_dir / 'index.html', 'w', encoding='utf-8') as f:
         f.write('''<!DOCTYPE html>
 <html>
