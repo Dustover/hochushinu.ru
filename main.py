@@ -32,6 +32,53 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
   <!-- Main CSS File -->
   <link href="../assets/css/main.css" rel="stylesheet">
 
+  <style>
+    /* Стили для превью изображений */
+    .thumbnail-slider {{
+      margin-top: 15px;
+    }}
+    .thumbnail-slide {{
+      cursor: pointer;
+      opacity: 0.6;
+      transition: opacity 0.3s ease;
+      padding: 2px;
+    }}
+    .thumbnail-slide:hover,
+    .thumbnail-slide.active {{
+      opacity: 1;
+    }}
+    .thumbnail-slide img {{
+      width: 80px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 4px;
+    }}
+    .whatsapp-btn {{
+      background: #25D366;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 6px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.3s ease;
+    }}
+    .whatsapp-btn:hover {{
+      background: #128C7E;
+      color: white;
+    }}
+    .portfolio-details-slider {{
+      max-height: 500px;
+    }}
+    .portfolio-details-slider img {{
+      max-height: 450px;
+      object-fit: contain;
+    }}
+  </style>
+
   <!-- =======================================================
   * Template Name: MyPortfolio
   * Template URL: https://bootstrapmade.com/myportfolio-bootstrap-portfolio-website-template/
@@ -109,6 +156,33 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
               </div>
               <div class="swiper-pagination"></div>
             </div>
+
+            <!-- Превью изображений -->
+            <div class="thumbnail-slider swiper init-swiper">
+
+              <script type="application/json" class="swiper-config">
+                {{
+                  "slidesPerView": "auto",
+                  "spaceBetween": 10,
+                  "freeMode": true,
+                  "watchSlidesProgress": true
+                }}
+              </script>
+
+              <div class="swiper-wrapper">
+                {thumbnail_slides}
+              </div>
+            </div>
+
+            <!-- Кнопка WhatsApp -->
+            <div class="mt-4" data-aos="fade-up" data-aos-delay="400">
+              <a href="https://wa.me/79211813093?text=Здравствуйте! Интересует {name}" 
+                 class="whatsapp-btn" 
+                 target="_blank">
+                <i class="bi bi-whatsapp"></i>
+                Заказать по WhatsApp
+              </a>
+            </div>
           </div>
 
           <div class="col-lg-4">
@@ -173,6 +247,25 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
   <!-- Main JS File -->
   <script src="../assets/js/main.js"></script>
 
+  <script>
+    // Скрипт для связи основного слайдера с превью
+    document.addEventListener('DOMContentLoaded', function() {{
+      const mainSlider = new Swiper('.portfolio-details-slider .swiper', {{
+        loop: true,
+        speed: 600,
+        autoplay: {{ delay: 5000 }},
+        slidesPerView: 'auto',
+        pagination: {{ el: '.swiper-pagination', clickable: true }},
+        thumbs: {{ swiper: new Swiper('.thumbnail-slider .swiper', {{
+          slidesPerView: 'auto',
+          spaceBetween: 10,
+          freeMode: true,
+          watchSlidesProgress: true
+        }})}}
+      }});
+    }});
+  </script>
+
 </body>
 
 </html>'''
@@ -204,26 +297,34 @@ def get_category_name(subcategory):
 
 
 def generate_image_slides(images_urls):
-    """Генерация слайдов для изображений"""
+    """Генерация слайдов для изображений и превью"""
     slides = []
+    thumbnails = []
     urls = [url.strip() for url in images_urls.split(',') if url.strip()]
 
     for i, url in enumerate(urls):
         # Преобразуем ссылку на изображение в правильный формат
         if 'postimg.cc' in url:
-            # Преобразуем https://postimg.cc/hJv3tFpC в https://i.postimg.cc/hJv3tFpC/filename.jpg
             image_id = url.split('/')[-1]
             direct_url = f'https://i.postimg.cc/{image_id}/image-{i + 1}.jpg'
         else:
             direct_url = url
 
+        # Основной слайд
         slide = f'''
                 <div class="swiper-slide">
                   <img src="{direct_url}" alt="Изображение {i + 1}">
                 </div>'''
         slides.append(slide)
 
-    return '\n'.join(slides)
+        # Превью слайд
+        thumbnail = f'''
+                <div class="swiper-slide thumbnail-slide">
+                  <img src="{direct_url}" alt="Превью {i + 1}">
+                </div>'''
+        thumbnails.append(thumbnail)
+
+    return '\n'.join(slides), '\n'.join(thumbnails)
 
 
 def generate_product_pages():
@@ -254,7 +355,7 @@ def generate_product_pages():
         name_page = row['name_page']
 
         # Генерация контента
-        image_slides = generate_image_slides(images)
+        image_slides, thumbnail_slides = generate_image_slides(images)
         category_id = get_category_id(subcategory)
         category_name = get_category_name(subcategory)
 
@@ -267,6 +368,7 @@ def generate_product_pages():
             category_id=category_id,
             category_name=category_name,
             image_slides=image_slides,
+            thumbnail_slides=thumbnail_slides,
             brand=brand,
             model=model,
             subcategory=subcategory,
