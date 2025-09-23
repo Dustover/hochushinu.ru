@@ -84,24 +84,7 @@
         <div class="row gy-4">
 
           <div class="col-lg-8">
-            <div class="portfolio-details-slider swiper init-swiper">
-
-              <script type="application/json" class="swiper-config">
-                {
-                  "loop": true,
-                  "speed": 600,
-                  "autoplay": {
-                    "delay": 5000
-                  },
-                  "slidesPerView": "auto",
-                  "pagination": {
-                    "el": ".swiper-pagination",
-                    "type": "bullets",
-                    "clickable": true
-                  }
-                }
-              </script>
-
+            <div class="portfolio-details-slider swiper">
               <div class="swiper-wrapper align-items-center">
                 
                 <div class="swiper-slide">
@@ -171,62 +154,52 @@
             </div>
 
             <!-- Превью изображений -->
-            <div class="thumbnail-slider swiper init-swiper">
-
-              <script type="application/json" class="swiper-config">
-                {
-                  "slidesPerView": "auto",
-                  "spaceBetween": 10,
-                  "freeMode": true,
-                  "watchSlidesProgress": true
-                }
-              </script>
-
+            <div class="thumbnail-slider swiper mt-3">
               <div class="swiper-wrapper">
                 
-                <div class="swiper-slide thumbnail-slide">
+                <div class="swiper-slide">
                   <img src="https://i.postimg.cc/8Cm8wNWV/IMG-6890.jpg" 
                        alt="Превью 1" 
                        loading="lazy"
                        class="thumbnail-image">
                 </div>
 
-                <div class="swiper-slide thumbnail-slide">
+                <div class="swiper-slide">
                   <img src="https://i.postimg.cc/xCfw4hyN/IMG-6891.jpg" 
                        alt="Превью 2" 
                        loading="lazy"
                        class="thumbnail-image">
                 </div>
 
-                <div class="swiper-slide thumbnail-slide">
+                <div class="swiper-slide">
                   <img src="https://i.postimg.cc/76KF89ms/IMG-6892.jpg" 
                        alt="Превью 3" 
                        loading="lazy"
                        class="thumbnail-image">
                 </div>
 
-                <div class="swiper-slide thumbnail-slide">
+                <div class="swiper-slide">
                   <img src="https://i.postimg.cc/x8qW0mZ0/IMG-6893.jpg" 
                        alt="Превью 4" 
                        loading="lazy"
                        class="thumbnail-image">
                 </div>
 
-                <div class="swiper-slide thumbnail-slide">
+                <div class="swiper-slide">
                   <img src="https://i.postimg.cc/Y0VTj9cQ/IMG-6894.jpg" 
                        alt="Превью 5" 
                        loading="lazy"
                        class="thumbnail-image">
                 </div>
 
-                <div class="swiper-slide thumbnail-slide">
+                <div class="swiper-slide">
                   <img src="https://i.postimg.cc/xjFw6skq/IMG-6895.jpg" 
                        alt="Превью 6" 
                        loading="lazy"
                        class="thumbnail-image">
                 </div>
 
-                <div class="swiper-slide thumbnail-slide">
+                <div class="swiper-slide">
                   <img src="https://i.postimg.cc/28bPM4vG/IMG-6896.jpg" 
                        alt="Превью 7" 
                        loading="lazy"
@@ -250,7 +223,8 @@
               </ul>
             </div>
             <div class="portfolio-description" data-aos="fade-up" data-aos-delay="300">
-
+              <h2>Описание</h2>
+              <p>Шинa WestLak WT01 710/70R42 — этo не прoсто высокoкачeственнaя модель для сельхoзтexники, нo и eдинcтвенная в своем pодe на росcийcкoм рынке. C отличными тяговыми xарактepиcтиками и прoчным протeктоpом, онa идeaльно пoдходит для paботы нa pазличныx гpунтax. При этoм её нeт в oфициaльной продажe в Pоссии, что делает её редкостью и отличным выбором для тех, кто ищет что-то особенное. Высокая надежность и долговечность — то, что нужно для тяжелых условий работы.</p>
 
               <!-- Кнопка WhatsApp после описания -->
               <div class="whatsapp-btn-container mt-4" data-aos="fade-up" data-aos-delay="400">
@@ -261,9 +235,6 @@
                   Заказать по WhatsApp
                 </a>
               </div>
-              
-              <h2>Описание</h2>
-              <p>Шинa WestLak WT01 710/70R42 — этo не прoсто высокoкачeственнaя модель для сельхoзтexники, нo и eдинcтвенная в своем pодe на росcийcкoм рынке. C отличными тяговыми xарактepиcтиками и прoчным протeктоpом, онa идeaльно пoдходит для paботы нa pазличныx гpунтax. При этoм её нeт в oфициaльной продажe в Pоссии, что делает её редкостью и отличным выбором для тех, кто ищет что-то особенное. Высокая надежность и долговечность — то, что нужно для тяжелых условий работы.</p>
             </div>
           </div>
 
@@ -313,26 +284,40 @@
   <script>
     // Скрипт для связи основного слайдера с превью
     document.addEventListener('DOMContentLoaded', function() {
-      const mainSlider = new Swiper('.portfolio-details-slider .swiper', {
+      // Инициализация слайдера миниатюр
+      var thumbnailSlider = new Swiper('.thumbnail-slider', {
+        slidesPerView: 4,
+        spaceBetween: 10,
+        freeMode: true,
+        watchSlidesProgress: true,
+        breakpoints: {
+          320: { slidesPerView: 3 },
+          480: { slidesPerView: 4 },
+          768: { slidesPerView: 5 },
+          992: { slidesPerView: 6 }
+        }
+      });
+
+      // Инициализация основного слайдера
+      var mainSlider = new Swiper('.portfolio-details-slider', {
         loop: true,
         speed: 600,
         autoplay: { delay: 5000 },
-        slidesPerView: 'auto',
-        pagination: { el: '.swiper-pagination', clickable: true },
-        thumbs: { 
-          swiper: new Swiper('.thumbnail-slider .swiper', {
-            slidesPerView: 'auto',
-            spaceBetween: 10,
-            freeMode: true,
-            watchSlidesProgress: true,
-            breakpoints: {
-              320: { slidesPerView: 3 },
-              480: { slidesPerView: 4 },
-              768: { slidesPerView: 5 },
-              992: { slidesPerView: 6 }
-            }
-          })
+        slidesPerView: 1,
+        pagination: { 
+          el: '.swiper-pagination', 
+          type: 'bullets',
+          clickable: true 
+        },
+        thumbs: {
+          swiper: thumbnailSlider
         }
+      });
+
+      // Добавляем активный класс для миниатюр
+      thumbnailSlider.on('click', function (swiper, event) {
+        var clickedIndex = swiper.clickedIndex;
+        mainSlider.slideTo(clickedIndex);
       });
     });
   </script>

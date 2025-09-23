@@ -84,24 +84,7 @@
         <div class="row gy-4">
 
           <div class="col-lg-8">
-            <div class="portfolio-details-slider swiper init-swiper">
-
-              <script type="application/json" class="swiper-config">
-                {
-                  "loop": true,
-                  "speed": 600,
-                  "autoplay": {
-                    "delay": 5000
-                  },
-                  "slidesPerView": "auto",
-                  "pagination": {
-                    "el": ".swiper-pagination",
-                    "type": "bullets",
-                    "clickable": true
-                  }
-                }
-              </script>
-
+            <div class="portfolio-details-slider swiper">
               <div class="swiper-wrapper align-items-center">
                 
                 <div class="swiper-slide">
@@ -216,97 +199,87 @@
             </div>
 
             <!-- Превью изображений -->
-            <div class="thumbnail-slider swiper init-swiper">
-
-              <script type="application/json" class="swiper-config">
-                {
-                  "slidesPerView": "auto",
-                  "spaceBetween": 10,
-                  "freeMode": true,
-                  "watchSlidesProgress": true
-                }
-              </script>
-
+            <div class="thumbnail-slider swiper mt-3">
               <div class="swiper-wrapper">
                 
-                <div class="swiper-slide thumbnail-slide">
+                <div class="swiper-slide">
                   <img src="https://i.postimg.cc/m2hsRPzX/IMG-6792.jpg" 
                        alt="Превью 1" 
                        loading="lazy"
                        class="thumbnail-image">
                 </div>
 
-                <div class="swiper-slide thumbnail-slide">
+                <div class="swiper-slide">
                   <img src="https://i.postimg.cc/QxPrMjcX/IMG-6793.jpg" 
                        alt="Превью 2" 
                        loading="lazy"
                        class="thumbnail-image">
                 </div>
 
-                <div class="swiper-slide thumbnail-slide">
+                <div class="swiper-slide">
                   <img src="https://i.postimg.cc/5tWdwpPT/IMG-6794.jpg" 
                        alt="Превью 3" 
                        loading="lazy"
                        class="thumbnail-image">
                 </div>
 
-                <div class="swiper-slide thumbnail-slide">
+                <div class="swiper-slide">
                   <img src="https://i.postimg.cc/qv3HhWG2/IMG-6795.jpg" 
                        alt="Превью 4" 
                        loading="lazy"
                        class="thumbnail-image">
                 </div>
 
-                <div class="swiper-slide thumbnail-slide">
+                <div class="swiper-slide">
                   <img src="https://i.postimg.cc/vm7RX9kB/IMG-6796.jpg" 
                        alt="Превью 5" 
                        loading="lazy"
                        class="thumbnail-image">
                 </div>
 
-                <div class="swiper-slide thumbnail-slide">
+                <div class="swiper-slide">
                   <img src="https://i.postimg.cc/tT9KcJGz/IMG-6797.jpg" 
                        alt="Превью 6" 
                        loading="lazy"
                        class="thumbnail-image">
                 </div>
 
-                <div class="swiper-slide thumbnail-slide">
+                <div class="swiper-slide">
                   <img src="https://i.postimg.cc/ydnMCKVC/IMG-6798.jpg" 
                        alt="Превью 7" 
                        loading="lazy"
                        class="thumbnail-image">
                 </div>
 
-                <div class="swiper-slide thumbnail-slide">
+                <div class="swiper-slide">
                   <img src="https://i.postimg.cc/Vv63Yh6r/IMG-6799.jpg" 
                        alt="Превью 8" 
                        loading="lazy"
                        class="thumbnail-image">
                 </div>
 
-                <div class="swiper-slide thumbnail-slide">
+                <div class="swiper-slide">
                   <img src="https://i.postimg.cc/WzHxt7F9/IMG-6800.jpg" 
                        alt="Превью 9" 
                        loading="lazy"
                        class="thumbnail-image">
                 </div>
 
-                <div class="swiper-slide thumbnail-slide">
+                <div class="swiper-slide">
                   <img src="https://i.postimg.cc/VsGx7zGj/IMG-6801.jpg" 
                        alt="Превью 10" 
                        loading="lazy"
                        class="thumbnail-image">
                 </div>
 
-                <div class="swiper-slide thumbnail-slide">
+                <div class="swiper-slide">
                   <img src="https://i.postimg.cc/9FDvKsKs/IMG-6802.jpg" 
                        alt="Превью 11" 
                        loading="lazy"
                        class="thumbnail-image">
                 </div>
 
-                <div class="swiper-slide thumbnail-slide">
+                <div class="swiper-slide">
                   <img src="https://i.postimg.cc/MpRgKVWD/IMG-6804.jpg" 
                        alt="Превью 12" 
                        loading="lazy"
@@ -330,7 +303,8 @@
               </ul>
             </div>
             <div class="portfolio-description" data-aos="fade-up" data-aos-delay="300">
-
+              <h2>Описание</h2>
+              <p>Шина WеstLаke WSR1 прeдназначeнa для pулевой оcи гpузoвыx aвтoмобилей, обеспeчивая выcокий уровень бeзoпaсноcти, управляeмости и комфopтa на доpогаx с aсфальтoвым пoкpытием. Oтличаетcя дoлговeчнoстью, экoномичностью и уcтойчивocтью к изнocу.</p>
 
               <!-- Кнопка WhatsApp после описания -->
               <div class="whatsapp-btn-container mt-4" data-aos="fade-up" data-aos-delay="400">
@@ -341,9 +315,6 @@
                   Заказать по WhatsApp
                 </a>
               </div>
-              
-              <h2>Описание</h2>
-              <p>Шина WеstLаke WSR1 прeдназначeнa для pулевой оcи гpузoвыx aвтoмобилей, обеспeчивая выcокий уровень бeзoпaсноcти, управляeмости и комфopтa на доpогаx с aсфальтoвым пoкpытием. Oтличаетcя дoлговeчнoстью, экoномичностью и уcтойчивocтью к изнocу.</p>
             </div>
           </div>
 
@@ -393,26 +364,40 @@
   <script>
     // Скрипт для связи основного слайдера с превью
     document.addEventListener('DOMContentLoaded', function() {
-      const mainSlider = new Swiper('.portfolio-details-slider .swiper', {
+      // Инициализация слайдера миниатюр
+      var thumbnailSlider = new Swiper('.thumbnail-slider', {
+        slidesPerView: 4,
+        spaceBetween: 10,
+        freeMode: true,
+        watchSlidesProgress: true,
+        breakpoints: {
+          320: { slidesPerView: 3 },
+          480: { slidesPerView: 4 },
+          768: { slidesPerView: 5 },
+          992: { slidesPerView: 6 }
+        }
+      });
+
+      // Инициализация основного слайдера
+      var mainSlider = new Swiper('.portfolio-details-slider', {
         loop: true,
         speed: 600,
         autoplay: { delay: 5000 },
-        slidesPerView: 'auto',
-        pagination: { el: '.swiper-pagination', clickable: true },
-        thumbs: { 
-          swiper: new Swiper('.thumbnail-slider .swiper', {
-            slidesPerView: 'auto',
-            spaceBetween: 10,
-            freeMode: true,
-            watchSlidesProgress: true,
-            breakpoints: {
-              320: { slidesPerView: 3 },
-              480: { slidesPerView: 4 },
-              768: { slidesPerView: 5 },
-              992: { slidesPerView: 6 }
-            }
-          })
+        slidesPerView: 1,
+        pagination: { 
+          el: '.swiper-pagination', 
+          type: 'bullets',
+          clickable: true 
+        },
+        thumbs: {
+          swiper: thumbnailSlider
         }
+      });
+
+      // Добавляем активный класс для миниатюр
+      thumbnailSlider.on('click', function (swiper, event) {
+        var clickedIndex = swiper.clickedIndex;
+        mainSlider.slideTo(clickedIndex);
       });
     });
   </script>

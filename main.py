@@ -1,6 +1,7 @@
 import pandas as pd
 import os
 from pathlib import Path
+import re
 
 # Шаблон HTML страницы
 HTML_TEMPLATE = '''<!DOCTYPE html>
@@ -89,24 +90,7 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
         <div class="row gy-4">
 
           <div class="col-lg-8">
-            <div class="portfolio-details-slider swiper init-swiper">
-
-              <script type="application/json" class="swiper-config">
-                {{
-                  "loop": true,
-                  "speed": 600,
-                  "autoplay": {{
-                    "delay": 5000
-                  }},
-                  "slidesPerView": "auto",
-                  "pagination": {{
-                    "el": ".swiper-pagination",
-                    "type": "bullets",
-                    "clickable": true
-                  }}
-                }}
-              </script>
-
+            <div class="portfolio-details-slider swiper">
               <div class="swiper-wrapper align-items-center">
                 {image_slides}
               </div>
@@ -114,17 +98,7 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
             </div>
 
             <!-- Превью изображений -->
-            <div class="thumbnail-slider swiper init-swiper">
-
-              <script type="application/json" class="swiper-config">
-                {{
-                  "slidesPerView": "auto",
-                  "spaceBetween": 10,
-                  "freeMode": true,
-                  "watchSlidesProgress": true
-                }}
-              </script>
-
+            <div class="thumbnail-slider swiper mt-3">
               <div class="swiper-wrapper">
                 {thumbnail_slides}
               </div>
@@ -145,7 +119,8 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
               </ul>
             </div>
             <div class="portfolio-description" data-aos="fade-up" data-aos-delay="300">
-
+              <h2>Описание</h2>
+              <p>{full_description}</p>
 
               <!-- Кнопка WhatsApp после описания -->
               <div class="whatsapp-btn-container mt-4" data-aos="fade-up" data-aos-delay="400">
@@ -156,9 +131,6 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
                   Заказать по WhatsApp
                 </a>
               </div>
-              
-              <h2>Описание</h2>
-              <p>{full_description}</p>
             </div>
           </div>
 
@@ -208,26 +180,40 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
   <script>
     // Скрипт для связи основного слайдера с превью
     document.addEventListener('DOMContentLoaded', function() {{
-      const mainSlider = new Swiper('.portfolio-details-slider .swiper', {{
+      // Инициализация слайдера миниатюр
+      var thumbnailSlider = new Swiper('.thumbnail-slider', {{
+        slidesPerView: 4,
+        spaceBetween: 10,
+        freeMode: true,
+        watchSlidesProgress: true,
+        breakpoints: {{
+          320: {{ slidesPerView: 3 }},
+          480: {{ slidesPerView: 4 }},
+          768: {{ slidesPerView: 5 }},
+          992: {{ slidesPerView: 6 }}
+        }}
+      }});
+
+      // Инициализация основного слайдера
+      var mainSlider = new Swiper('.portfolio-details-slider', {{
         loop: true,
         speed: 600,
         autoplay: {{ delay: 5000 }},
-        slidesPerView: 'auto',
-        pagination: {{ el: '.swiper-pagination', clickable: true }},
-        thumbs: {{ 
-          swiper: new Swiper('.thumbnail-slider .swiper', {{
-            slidesPerView: 'auto',
-            spaceBetween: 10,
-            freeMode: true,
-            watchSlidesProgress: true,
-            breakpoints: {{
-              320: {{ slidesPerView: 3 }},
-              480: {{ slidesPerView: 4 }},
-              768: {{ slidesPerView: 5 }},
-              992: {{ slidesPerView: 6 }}
-            }}
-          }})
+        slidesPerView: 1,
+        pagination: {{ 
+          el: '.swiper-pagination', 
+          type: 'bullets',
+          clickable: true 
+        }},
+        thumbs: {{
+          swiper: thumbnailSlider
         }}
+      }});
+
+      // Добавляем активный класс для миниатюр
+      thumbnailSlider.on('click', function (swiper, event) {{
+        var clickedIndex = swiper.clickedIndex;
+        mainSlider.slideTo(clickedIndex);
       }});
     }});
   </script>
@@ -262,10 +248,6 @@ def get_category_name(subcategory):
     return category_map.get(subcategory, 'Шины')
 
 
-import re
-import pandas as pd
-
-
 def extract_image_urls(html_content):
     """Извлекает URL изображений из HTML-строки."""
     if pd.isna(html_content) or not html_content:
@@ -291,11 +273,13 @@ def generate_image_slides(images_html):
         # Если нет изображений, возвращаем заглушку
         slide = '''
                 <div class="swiper-slide">
-                  <img src="../assets/img/no-image.jpg" alt="Нет изображения" style="max-height: 400px; object-fit: contain;">
+                  <div class="image-container">
+                    <img src="../assets/img/no-image.jpg" alt="Нет изображения" class="main-product-image">
+                  </div>
                 </div>'''
         thumbnail = '''
-                <div class="swiper-slide thumbnail-slide">
-                  <img src="../assets/img/no-image.jpg" alt="Нет изображения">
+                <div class="swiper-slide">
+                  <img src="../assets/img/no-image.jpg" alt="Нет изображения" class="thumbnail-image">
                 </div>'''
         return slide, thumbnail
 
@@ -320,7 +304,7 @@ def generate_image_slides(images_html):
 
         # Превью слайд
         thumbnail = f'''
-                <div class="swiper-slide thumbnail-slide">
+                <div class="swiper-slide">
                   <img src="{direct_url}" 
                        alt="Превью {i + 1}" 
                        loading="lazy"
@@ -331,8 +315,143 @@ def generate_image_slides(images_html):
     return '\n'.join(slides), '\n'.join(thumbnails)
 
 
+def create_css_file():
+    """Создание CSS файла со стилями для страниц товаров"""
+    css_content = '''/* Стили для страниц товаров */
+.thumbnail-slider {
+  margin-top: 15px;
+  padding: 10px 0;
+}
+
+.thumbnail-slider .swiper-wrapper {
+  align-items: center;
+}
+
+.thumbnail-image {
+  width: 80px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 4px;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.thumbnail-image:hover {
+  opacity: 0.8;
+  transform: scale(1.05);
+}
+
+.swiper-slide-thumb-active .thumbnail-image {
+  opacity: 1;
+  border-color: #007bff;
+}
+
+.main-product-image {
+  max-width: 100%;
+  height: auto;
+  max-height: 500px;
+  object-fit: contain;
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  min-height: 400px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.portfolio-details-slider {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.portfolio-details-slider .swiper-pagination {
+  position: relative;
+  margin-top: 15px;
+}
+
+.whatsapp-btn-container {
+  text-align: center;
+  padding: 15px 0;
+}
+
+.whatsapp-btn {
+  background: #25D366;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 6px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.3s ease;
+}
+
+.whatsapp-btn:hover {
+  background: #128C7E;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .image-container {
+    min-height: 300px;
+    padding: 10px;
+  }
+
+  .main-product-image {
+    max-height: 300px;
+  }
+
+  .thumbnail-image {
+    width: 60px;
+    height: 45px;
+  }
+
+  .thumbnail-slider .swiper-slide {
+    width: auto !important;
+  }
+}
+
+/* Галерея */
+.portfolio-details-slider .swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.thumbnail-slider .swiper-slide {
+  width: auto !important;
+}
+'''
+
+    # Создаем папку assets/css если её нет
+    css_dir = Path('assets/css')
+    css_dir.mkdir(parents=True, exist_ok=True)
+
+    # Сохраняем CSS файл
+    css_file = css_dir / 'product-pages.css'
+    with open(css_file, 'w', encoding='utf-8') as f:
+        f.write(css_content)
+
+    print(f'Создан CSS файл: {css_file}')
+
+
 def generate_product_pages():
     """Генерация страниц для всех товаров"""
+    # Создаем CSS файл со стилями
+    create_css_file()
+
     # Чтение данных из Excel
     df = pd.read_excel('hochushinu.xlsx')
 
@@ -349,7 +468,7 @@ def generate_product_pages():
         subcategory = row['subcategory']
         brand = row['brand']
         description = row['description']
-        images_html = row['images']  # Теперь это HTML-контент
+        images_html = row['images']
         model = row['model']
         width = row['width']
         height = row['height']
@@ -399,13 +518,6 @@ def generate_product_pages():
 <html>
 <head>
     <title>Все страницы товаров</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 40px; }
-        ul { list-style-type: none; padding: 0; }
-        li { margin: 10px 0; }
-        a { text-decoration: none; color: #007bff; }
-        a:hover { text-decoration: underline; }
-    </style>
 </head>
 <body>
     <h1>Сгенерированные страницы товаров</h1>
