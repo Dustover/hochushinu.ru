@@ -38,40 +38,61 @@
 
 <body class="index-page">
 
-<header id="header" class="header d-flex align-items-center sticky-top">
-  <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
-
-    <a href="index.html" class="logo d-flex align-items-center">
-      <!-- Uncomment the line below if you also wish to use an image logo -->
-      <!-- <img src="assets/img/logo.png" alt=""> -->
-      <h1 class="sitename">Хочу Шину!</h1>
-    </a>
-
-    <nav id="navmenu" class="navmenu">
-      <ul>
-        <li><a href="index.html" class="active">Домой</a></li>
-        <li><a href="about.html">О нас</a></li>
-        <li><a href="contact.html">Контакты</a></li>
-      </ul>
-      <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-    </nav>
-
-    <!-- Контактные данные -->
-<div class="header-contacts d-none d-lg-flex align-items-center justify-content-center w-100 position-absolute">
-  <div class="contact-item me-4">
-    <a href="tel:+79211813093" class="d-flex align-items-center text-decoration-none">
-      <i class="bi bi-phone me-2 fs-5"></i>
-      <span class="fs-5 fw-medium">+7 921 181 3093</span>
-    </a>
+<header id="header" class="header sticky-top">
+  <!-- Мобильные контакты (только для маленьких экранов) -->
+  <div class="mobile-header-contacts d-lg-none py-2 bg-light border-bottom">
+    <div class="container-fluid">
+      <div class="row justify-content-center text-center">
+        <div class="col-6">
+          <a href="tel:+79211813093" class="d-flex align-items-center justify-content-center text-decoration-none text-dark">
+            <i class="bi bi-phone me-2"></i>
+            <small>+7 921 181 3093</small>
+          </a>
+        </div>
+        <div class="col-6">
+          <a href="mailto:monogarov.simbiom@yandex.ru" class="d-flex align-items-center justify-content-center text-decoration-none text-dark">
+            <i class="bi bi-envelope me-2"></i>
+            <small>Email</small>
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="contact-item">
-    <a href="mailto:monogarov.simbiom@yandex.ru" class="d-flex align-items-center text-decoration-none">
-      <i class="bi bi-envelope me-2 fs-5"></i>
-      <span class="fs-5 fw-medium">monogarov.simbiom@yandex.ru</span>
-    </a>
-  </div>
-</div>
 
+  <!-- Основная шапка -->
+  <div class="header-main d-flex align-items-center">
+    <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
+
+      <a href="index.html" class="logo d-flex align-items-center">
+        <h1 class="sitename">Хочу Шину!</h1>
+      </a>
+
+      <!-- Контакты для десктопной версии -->
+      <div class="header-contacts d-none d-lg-flex align-items-center justify-content-center w-100 position-absolute">
+        <div class="contact-item me-4">
+          <a href="tel:+79211813093" class="d-flex align-items-center text-decoration-none">
+            <i class="bi bi-phone me-2 fs-5"></i>
+            <span class="fs-5 fw-medium">+7 921 181 3093</span>
+          </a>
+        </div>
+        <div class="contact-item">
+          <a href="mailto:monogarov.simbiom@yandex.ru" class="d-flex align-items-center text-decoration-none">
+            <i class="bi bi-envelope me-2 fs-5"></i>
+            <span class="fs-5 fw-medium">monogarov.simbiom@yandex.ru</span>
+          </a>
+        </div>
+      </div>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="index.html" class="active">Домой</a></li>
+          <li><a href="about.html">О нас</a></li>
+          <li><a href="contact.html">Контакты</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+    </div>
   </div>
 </header>
 
